@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy Frontend to EC2
 
 on:
   push:
@@ -21,9 +21,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         port: 22
         script: |
-          cd ~/herencia-app/backend
-          git pull
-          cd ../frontend
+          cd ~/herencia-app/frontend
           git pull
           cd ..
           docker-compose up --build -d
