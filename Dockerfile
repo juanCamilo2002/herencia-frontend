@@ -1,5 +1,5 @@
 # etapa 1: Construcción
-FROM node:23-slim AS build
+FROM node:20-slim AS build
 
 WORKDIR /app
 COPY  package*.json ./
