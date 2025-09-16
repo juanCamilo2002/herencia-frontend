@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>Lista de vendedores</h2>
+    <button routerLink="/dashboard/sellers/new">Nuevo vendedor</button>
+
+    @if(!loading){
+    <!-- <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Identificación</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Ciudad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(seller of sellers; track seller.id){
+            <td>{{seller.name}} {{seller.lastName}}</td>
+            <td>{{seller.identificationType}} - {{seller.identificationNumber}}</td>
+            <td>{{seller.phone}}</td>
+            <td>{{seller.email}}</td>
+            <td>{{seller.city}}</td>
+            <td>
+                <button [routerLink]="['/dashboard/sellers', seller.id]">Editar</button>
+                <button (click)="deleteSeller(seller.id!)">Eliminar</button>
+            </td>
+            }
+        </tbody>
+    </table> -->
+
+    <app-datatable
+        [data]="sellers"
+        [columns]="[
+            { key: 'name', label: 'Nombre' },
+            { key: 'identificationType', label: 'Tipo Identificación' },
+            { key: 'identificationNumber', label: 'Número Identificación' },
+            { key: 'phone', label: 'Teléfono' },
+            { key: 'email', label: 'Email' },
+            { key: 'city', label: 'Ciudad' },
+            { label: 'Acciones', template: actionTpl }
+        ]"
+        [pageSize]="5"
+        (rowClick)="onRowClick($event)">
+
+    </app-datatable>
+    }
+</div>
+<!-- Plantilla personalizada para acciones -->
+<ng-template #actionTpl let-row>
+  <button [routerLink]="['/dashboard/sellers', row.id]">Editar</button>
+  <button (click)="deleteSeller(row.id)">Eliminar</button>
+</ng-template>

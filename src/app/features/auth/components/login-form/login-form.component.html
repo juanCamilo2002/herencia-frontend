@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="email" placeholder="Correo electrónico">
+    <input type="password" formControlName="password" placeholder="Contraseña">
+    <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Cargando...' : 'Iniciar sesión' }}
+    </button>
+</form>
+
+@if (error) {
+<div class="error">{{error}}</div>
+}

@@ -1,0 +1,67 @@
+<div class="p-4">
+  <h2>📦 Gestión de Items</h2>
+
+  <!-- Formulario nuevo item -->
+  <div>
+    <input [(ngModel)]="newItem.name" placeholder="Nombre" />
+    <select [(ngModel)]="newItem.type">
+      <option value="producto">Producto</option>
+      <option value="insumo">Insumo</option>
+    </select>
+    <input [(ngModel)]="newItem.category" placeholder="Categoría" />
+    <input [(ngModel)]="newItem.price" type="number" placeholder="Precio" />
+    <button (click)="addItem()">➕ Agregar</button>
+  </div>
+
+  <!-- Listado -->
+  <table border="1" width="100%" class="mt-4">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of items; track item.id) {
+      <tr>
+        @if(editingItem?.id !== item.id){
+        <td>{{ item.name }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.price }}</td>
+
+        }
+        @if (editingItem && editingItem.id === item.id) {
+        <td>
+          <input [(ngModel)]="editingItem.name" />
+        </td>
+        <td>
+          <select [(ngModel)]="editingItem.type">
+            <option value="producto">Producto</option>
+            <option value="insumo">Insumo</option>
+          </select>
+        </td>
+        <td>
+          <input [(ngModel)]="editingItem.category" />
+        </td>
+        <td>
+          <input [(ngModel)]="editingItem.price" type="number" />
+        </td>
+        }
+        <td>
+          @if(editingItem?.id !== item.id){
+          <button (click)="editItem(item)">✏️</button>
+          <button (click)="deleteItem(item.id)">🗑️</button>
+          }
+          @if(editingItem && editingItem.id === item.id){
+          <button (click)="updateItem()">💾</button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

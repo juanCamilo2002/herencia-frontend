@@ -1,0 +1,53 @@
+<div class="p-4">
+  <h2>📜 Movimientos de Inventario</h2>
+
+  <!-- Formulario agregar movimiento -->
+  <div>
+    <select [(ngModel)]="newMovement.itemId">
+      @for(item of items; track item.id){
+      <option [value]="item.id">{{ item.name }}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="newMovement.storeId">
+      @for(store of stores; track store.id){
+      <option [value]="store.id">{{ store.name }}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="newMovement.type">
+      <option value="entrada">Entrada</option>
+      <option value="salida">Salida</option>
+      <option value="venta">Venta</option>
+    </select>
+
+    <input type="number" [(ngModel)]="newMovement.quantity" placeholder="Cantidad" />
+
+    <button (click)="addMovement()">➕ Registrar</button>
+  </div>
+
+  <!-- Historial -->
+  <table border="1" width="100%" class="mt-4">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Punto de Venta</th>
+        <th>Item</th>
+        <th>Tipo</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(m of movements; track m.id){
+      <tr>
+        <td>{{ m.date | date:'short' }}</td>
+        <td>{{ getStoreName(m.storeId) }}</td>
+        <td>{{ getItemName(m.itemId) }}</td>
+        <td>{{ m.type }}</td>
+        <td>{{ m.quantity }}</td>
+      </tr>
+      }
+
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,33 @@
+<div class="p-4">
+  <h2>📦 Inventario por Punto de Venta</h2>
+
+  <label>Punto de Venta:</label>
+  <select [(ngModel)]="selectedStoreId">
+    <option *ngFor="let store of stores" [value]="store.id">
+      {{ store.name }}
+    </option>
+  </select>
+
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Stock</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.name }}</td>
+        <td>{{ item.type }}</td>
+        <td [ngClass]="{ 'alert': getStock(item.id) < 5 }">
+          {{ getStock(item.id) }}
+        </td>
+        <td *ngIf="item.type === 'producto'">{{ item.price | currency }}</td>
+        <td *ngIf="item.type === 'insumo'">-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
