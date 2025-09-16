@@ -1,0 +1,49 @@
+<div class="datatable">
+  <!-- search -->
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar..." class="search-input" />
+
+  <table>
+    <thead>
+      <tr>
+        @for(col of columns; track col.key){
+        <th (click)="toggleSort(col)">
+          {{col.label}}
+          @if(col.key === sortColumn){
+          <span>{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+          }
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(row of paginatedData; track $index){
+      <tr (click)="rowClick.emit(row)">
+        @for (col of columns; track col.key) {
+        <td>
+          @if(col.template){
+          <ng-container [ngTemplateOutlet]="col.template" [ngTemplateOutletContext]="{ $implicit: row }" />
+          } @else {
+          {{col.key ? row[col.key] : ''}}
+          }
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+  <!-- 📄 Controles de paginación -->
+  <div class="pagination">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+      Prev
+    </button>
+
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+</div>

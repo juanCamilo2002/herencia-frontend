@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>{{ sellerId ? 'Editar Vendedor' : 'Nuevo Vendedor' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input class="form-control" formControlName="name">
+    </div>
+
+    <div class="mb-3">
+      <label>Apellido</label>
+      <input class="form-control" formControlName="lastName">
+    </div>
+
+    <div class="mb-3">
+      <label>Tipo de Identificación</label>
+      <select class="form-select" formControlName="identificationType">
+        @for(type of identificationTypes; track type){
+        <option [value]="type">
+          {{ type }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Número de Identificación</label>
+      <input class="form-control" formControlName="identificationNumber">
+    </div>
+
+    <div class="mb-3">
+      <label>Teléfono</label>
+      <input class="form-control" formControlName="phone">
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input class="form-control" type="email" formControlName="email">
+    </div>
+
+    <div class="mb-3">
+      <label>Dirección</label>
+      <input class="form-control" formControlName="address">
+    </div>
+
+    <div class="mb-3">
+      <label>Ciudad</label>
+      <input class="form-control" formControlName="city">
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <button routerLink="../sellers" >Cancelar</button>
+  </form>
+</div>

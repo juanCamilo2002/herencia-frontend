@@ -1,0 +1,52 @@
+<div class="p-4">
+  <h2>🏬 Puntos de Venta</h2>
+
+  <!-- Agregar nuevo -->
+  <div>
+    <input [(ngModel)]="newStore.name" placeholder="Nombre" />
+    <input [(ngModel)]="newStore.location" placeholder="Ubicación" />
+    <button (click)="addStore()">➕ Agregar</button>
+  </div>
+
+  <!-- Listado -->
+  <table border="1" width="100%" class="mt-4">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ubicación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(store of stores; track store.id) {
+      <tr>
+        @if (editingStore?.id !== store.id){
+        <td>{{ store.name }}</td>
+        <td>{{ store.location }}</td>
+
+        }
+
+        @if (editingStore && editingStore.id === store.id) {
+        <td>
+          <input [(ngModel)]="editingStore.name" />
+        </td>
+        <td>
+          <input [(ngModel)]="editingStore.location" />
+        </td>
+        }
+
+        <td>
+          @if(editingStore?.id !== store.id){
+          <button (click)="editStore(store)">✏️ Editar</button>
+          <button (click)="deleteStore(store.id)">🗑️ Eliminar</button>
+          }
+          @if (editingStore && editingStore.id === store.id) {
+          <button (click)="updateStore()">💾 Guardar</button>
+          }
+        </td>
+      </tr>
+      }
+
+    </tbody>
+  </table>
+</div>
